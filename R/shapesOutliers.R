@@ -1,3 +1,12 @@
+#' shapesOutliers
+#'
+#' A function to find outliers in a dataset of configuration matrices representing shapes
+#'
+#' @return the positions where the configuration matrices are not outliers
+#' @export
+#'
+#' @examples
+#' my_function()
 shapesOutliers=function(shapesRaw,class=NULL,
                         desired_levels=NULL,max_iter=2,c_IQR=3,
                         plot2d_outliers=F,joinline=c(1,2,1),
