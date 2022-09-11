@@ -2,8 +2,8 @@
 #Preprocessing of data
 ################################################################################
 
-# Let us set the directory 
-setwd("C:/Users/alvar/Desktop/TFM/Scripts")
+# Let us set the directory
+#setwd("")
 # The column `Id` is deleted from the original dataset
 data=read.csv("(fixed)957_2022_left_arm.csv")[,-1]
 # Let us perform reflection over Y=0 of the raw coordinates (odd elements)
@@ -27,12 +27,12 @@ class_global=data$class_global
 # dimension `n_data` (the nb of children) called `limb`
 #Additionally, each configuration matrix is centered about the origin...
 
-raw_coordinates=as.matrix(data[,1:40]) 
+raw_coordinates=as.matrix(data[,1:40])
 limb=list()
 for (kid in 1:n_data) {
   limb[[kid]]=cbind(raw_coordinates[kid,seq(1,40,2)], #1,3,5,7,9,..,39
                     raw_coordinates[kid,seq(2,40,2)]) #2,4,6,8,10,...,40
-  
+
   #Translation about the origin x=0,y=0 of the configuration matrix
   #(see page 63 of Dryden)
   limb[[kid]]=(diag(20)-(1/20)*matrix(1,20,1)%*%matrix(1,1,20))%*%limb[[kid]]
@@ -41,7 +41,7 @@ rm(raw_coordinates)
 
 # Now, `limb_shapes` is a 3d matrix of dimension 20 x 2 x n_data
 #such that limb_shapes[,,j]=limb[[j]] for each j
-limb_shapes=simplify2array(limb) 
+limb_shapes=simplify2array(limb)
 
 ################################################################################
 
@@ -56,17 +56,17 @@ SAM_final=function(iter=1,
                    landmarks=1:20,
                    byage,month_division,interval_months,
                    list_of_levels,
-                   
+
                    splitting_method='cv',folds=10,
                    train_prop=0.8,n_partitions=50,
                    remove_outliers,max_iter,c_IQR,
                    registration_method,
                    allometry,
                    model_name
-                   
-                   
+
+
                    ){
-  
+
 
   #Subset division
   if(which_subset=='all'){
@@ -88,7 +88,7 @@ SAM_final=function(iter=1,
     limb_shapes=limb_shapes[ , ,ind]
     class_global=class_global[ind]
   }
-  
+
   #Nutritional status division
   new_levels=c()
   for (l_1 in 1:length(list_of_levels)) {
@@ -101,8 +101,8 @@ SAM_final=function(iter=1,
   class_global=class_global[ind]
   class_global=droplevels(class_global)
   levels(class_global)=new_levels
-  
-  
+
+
   a=shapesClassification_2(
                            shapesRaw=limb_shapes,class=class_global,
                            splitting_method=splitting_method,folds=folds,
@@ -112,7 +112,7 @@ SAM_final=function(iter=1,
                            allometry=allometry,
                            model_name=model_name)
   return(a$conf_matrix)
-  
+
 } #END OF FUNCTION
 
 
@@ -155,8 +155,8 @@ cl <- makeCluster(cores[1]-1) #not to overload your computer
 registerDoParallel(cl)
 
 RESULTADOS_all_4class=foreach(i=1:12)%dopar%{
-  
-  
+
+
   list(paste(aa[i,3],'-',aa[i,2],'-',aa[i,1]),
        SAM_final(limb_shapes=limb_shapes,class_global=class_global,agemons=agemons,
                  which_subset = 'All',
@@ -191,8 +191,8 @@ cl <- makeCluster(cores[1]-1) #not to overload your computer
 registerDoParallel(cl)
 
 RESULTADOS_1st_4class=foreach(i=1:12)%dopar%{
-  
-  
+
+
   list(paste(aa[i,3],'-',aa[i,2],'-',aa[i,1]),
        SAM_final(limb_shapes=limb_shapes[,,1:569],class_global=class_global[1:569],agemons=agemons[1:569],
                  which_subset = 'All',
@@ -236,8 +236,8 @@ cl <- makeCluster(cores[1]-1) #not to overload your computer
 registerDoParallel(cl)
 
 RESULTADOS_all_2class=foreach(i=1:12)%dopar%{
-  
-  
+
+
   list(paste(aa[i,3],'-',aa[i,2],'-',aa[i,1]),
        SAM_final(limb_shapes=limb_shapes,class_global=class_global,agemons=agemons,
                  which_subset = 'All',
@@ -272,8 +272,8 @@ cl <- makeCluster(cores[1]-1) #not to overload your computer
 registerDoParallel(cl)
 
 RESULTADOS_1st_2class=foreach(i=1:12)%dopar%{
-  
-  
+
+
   list(paste(aa[i,3],'-',aa[i,2],'-',aa[i,1]),
        SAM_final(limb_shapes=limb_shapes[,,1:569],class_global=class_global[1:569],agemons=agemons[1:569],
                  which_subset = 'All',

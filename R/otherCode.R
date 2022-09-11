@@ -4,8 +4,8 @@
 
 
 
-# Let us set the directory 
-setwd("C:/Users/alvar/Desktop/TFM/Scripts")
+# Let us set the directory
+#setwd("")
 # The column `Id` is deleted from the original dataset
 data=read.csv("(fixed)957_2022_left_arm.csv")[,-1]
 # Let us perform reflection over Y=0 of the raw coordinates (odd elements)
@@ -31,12 +31,12 @@ class_global=data$class_global
 # dimension `n_data` (the nb of children) called `limb`
 #Additionally, each configuration matrix is centered about the origin...
 
-raw_coordinates=as.matrix(data[,1:40]) 
+raw_coordinates=as.matrix(data[,1:40])
 limb=list()
 for (kid in 1:n_data) {
   limb[[kid]]=cbind(raw_coordinates[kid,seq(1,40,2)], #1,3,5,7,9,..,39
                     raw_coordinates[kid,seq(2,40,2)]) #2,4,6,8,10,...,40
-  
+
   #Translation about the origin x=0,y=0 of the configuration matrix
   #(see page 63 of Dryden)
   limb[[kid]]=(diag(20)-(1/20)*matrix(1,20,1)%*%matrix(1,1,20))%*%limb[[kid]]
@@ -45,7 +45,7 @@ rm(raw_coordinates)
 
 # Now, `limb_shapes` is a 3d matrix of dimension 20 x 2 x n_data
 #such that limb_shapes[,,j]=limb[[j]] for each j
-limb_shapes=simplify2array(limb) 
+limb_shapes=simplify2array(limb)
 
 # (OPTIONAL) Escoger un subset de landmarks
 limb_shapes=limb_shapes[1:20,,]
@@ -102,7 +102,7 @@ levels(class_global)=new_levels
 
 
 
-#paramtest::grid_search(SAM_final, 
+#paramtest::grid_search(SAM_final,
 #                       params=list(which_subset=c('all'),
 #                                   byage=c(F,T),
 #                                   interval_months=c('[0,24)'),

@@ -7,8 +7,8 @@
 
 
 
-# Let us set the directory 
-setwd("C:/Users/alvar/Desktop/TFM/Scripts")
+# Let us set the directory
+#setwd("")
 # The column `Id` is deleted from the original dataset
 data=read.csv("(fixed)957_2022_left_arm")[,-1]
 # Let us perform reflection over Y=0 of the raw coordinates (odd elements)
@@ -34,12 +34,12 @@ class_global=data$class_global
 # dimension `n_data` (the nb of children) called `limb`
 #Additionally, each configuration matrix is centered about the origin...
 
-raw_coordinates=as.matrix(data[,1:40]) 
+raw_coordinates=as.matrix(data[,1:40])
 limb=list()
 for (kid in 1:n_data) {
   limb[[kid]]=cbind(raw_coordinates[kid,seq(1,40,2)], #1,3,5,7,9,..,39
                     raw_coordinates[kid,seq(2,40,2)]) #2,4,6,8,10,...,40
-  
+
   #Translation about the origin x=0,y=0 of the configuration matrix
   #(see page 63 of Dryden)
   limb[[kid]]=(diag(20)-(1/20)*matrix(1,20,1)%*%matrix(1,1,20))%*%limb[[kid]]
@@ -47,7 +47,7 @@ for (kid in 1:n_data) {
 rm(raw_coordinates)
 
 
-limb_shapes=simplify2array(limb) 
+limb_shapes=simplify2array(limb)
 
 
 limb_sizes=procGPA(limb_shapes)$size
@@ -177,7 +177,7 @@ text(((diag(20)-(1/20)*matrix(1,20,1)%*%matrix(1,1,20))%*%limb[[kid2]]),labels=a
 
 pos=intersect(which(data$class_global=="NOR"),which(data$agemons<24))
 plot(limb_shapes[,1,pos],limb_shapes[,2,pos],axes=TRUE,asp=1,cex=0.3,xlab="",ylab="", pch=20)
-joinline=c(20,3,19,5,7,9,17,11,13,15,1,4,16,14,12,18,10,8,6,20) 
+joinline=c(20,3,19,5,7,9,17,11,13,15,1,4,16,14,12,18,10,8,6,20)
 for (i in 1:length(pos)){
   lines(limb_shapes[joinline,,pos[i]],col="grey")
 }
@@ -188,7 +188,7 @@ points(aa$mshape,cex=1,lwd=3, pch=20,col='white')
 aa=procGPA(limb_shapes[,,pos])
 
 plot(aa$rotated[,1,],aa$rotated[,2,],axes=TRUE,asp=1,cex=0.3,xlab="",ylab="", pch=20)
-joinline=c(20,3,19,5,7,9,17,11,13,15,1,4,16,14,12,18,10,8,6,20) 
+joinline=c(20,3,19,5,7,9,17,11,13,15,1,4,16,14,12,18,10,8,6,20)
 for (i in 1:length(pos)){
   lines(aa$rotated[joinline,,i],col="grey")
 }
