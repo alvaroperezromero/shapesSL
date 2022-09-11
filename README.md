@@ -1,6 +1,7 @@
 # shapesSL
-Emulating supervised learning over datasets made of shapes
+Supervised learning in Geometric Morphometrics
 
+Scripts are in R folder.
 
 Install from github   devtools::install_github(" alvaroperezromero /
 shapesSL ")
