@@ -137,7 +137,7 @@ b=SAM_final(limb_shapes=limb_shapes,class_global=class_global,agemons=agemons,
 ###############################
 ############################### OBTAINING RESULTS WITH PARALLELIZATION #########
 
-### NOR,   RIS ,  MAM,   SAM   (4CLASSES  - TODO EL DATASET)
+### NOR,   RIS ,  MAM,   SAM   (4CLASSES  - ALL DATASET)
 
 aa=expand.grid(interval_months=c('[0,24)','[24,Inf)'),
                registration_method=c('mean','median'),
@@ -194,8 +194,8 @@ RESULTADOS_1st_4class=foreach(i=1:12)%dopar%{
 
 
   list(paste(aa[i,3],'-',aa[i,2],'-',aa[i,1]),
-       SAM_final(limb_shapes=limb_shapes[,,1:569],class_global=class_global[1:569],agemons=agemons[1:569],
-                 which_subset = 'All',
+       SAM_final(limb_shapes=limb_shapes,class_global=class_global,agemons=agemons,
+                 which_subset = 'first',
                  byage=T,month_division=c(24),interval_months=aa[i,1],
                  list_of_levels=list('NOR','RIS','MAM','SAM'),
                  splitting_method='cv',folds=20,
@@ -218,7 +218,7 @@ stopCluster(cl)
 
 
 
-### NOR,   RIS ,  MAM,   SAM   (2CLASSES  - TODO EL DATASET)
+### NOR - RIS ,  MAM - SAM   (2CLASSES  - ALL DATASET)
 
 aa=expand.grid(interval_months=c('[0,24)','[24,Inf)'),
                registration_method=c('mean','median'),
@@ -254,7 +254,7 @@ stopCluster(cl)
 
 
 
-### NOR,   RIS ,  MAM,   SAM   (2CLASSES  - 1st partition)
+### NOR - RIS ,  MAM - SAM   (2CLASSES  - 1st partition)
 
 aa=expand.grid(interval_months=c('[0,24)','[24,Inf)'),
                registration_method=c('mean','median'),
@@ -275,8 +275,8 @@ RESULTADOS_1st_2class=foreach(i=1:12)%dopar%{
 
 
   list(paste(aa[i,3],'-',aa[i,2],'-',aa[i,1]),
-       SAM_final(limb_shapes=limb_shapes[,,1:569],class_global=class_global[1:569],agemons=agemons[1:569],
-                 which_subset = 'All',
+       SAM_final(limb_shapes=limb_shapes,class_global=class_global,agemons=agemons,
+                 which_subset = 'first',
                  byage=T,month_division=c(24),interval_months=aa[i,1],
                  list_of_levels=list(c('NOR','RIS'),c('MAM','SAM')),
                  splitting_method='cv',folds=20,

@@ -132,10 +132,10 @@ shapesOutliers=function(shapesRaw,class=NULL,
     layout(matrix(c(1,2,1,2,1,2,3,3), 4, 2, byrow = TRUE))
     #If `class` has more than 10 classes, then the vector `colorss`
     #must be extended
-    #colorss=c('limegreen','darkgreen','darkorchid1','blue','deeppink',
-    #'orange','seagreen1','thistle1','turquoise2','slateblue4')
-    colorss=c('limegreen','red','darkorange','red','deeppink',
-              'orange','seagreen1','thistle1','turquoise2','slateblue4')
+    colorss=c('limegreen','darkgreen','darkorchid1','blue','deeppink',
+    'orange','seagreen1','thistle1','turquoise2','slateblue4')
+    #colorss=c('limegreen','red','darkorange','red','deeppink',
+    #          'orange','seagreen1','thistle1','turquoise2','slateblue4')
 
     for(w in c('With','Without')){
       if(w=='With'){
