@@ -1,5 +1,5 @@
 # shapesSL
-shapes Supervised Learning.  SL applied to Geometric Morphometrics.
+Supervised Learning in Geometric Morphometrics shapes.
 
 Scripts are located in `R` folder.
 
