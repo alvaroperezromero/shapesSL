@@ -1,7 +1,7 @@
 # shapesSL
-Supervised learning in Geometric Morphometrics
+shapes Supervised Learning.  SL applied to Geometric Morphometrics.
 
-Scripts are in R folder.
+Scripts are located in `R` folder.
 
-Install from github   devtools::install_github(" alvaroperezromero /
-shapesSL ")
+In order to install `shapesSL` in `R`, execute the following  `devtools::install_github(" alvaroperezromero /
+shapesSL ")`
